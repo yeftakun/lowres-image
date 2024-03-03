@@ -127,6 +127,18 @@
       opacity: 0.8; /* Efek hover */
     }
 
+    #footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    text-align: center;
+    padding: 10px;
+    z-index: 999; /* Mengatur stacking order agar footer berada di atas konten lain */
+  }
+
+
 </style>
 </head>
 <body>
@@ -136,6 +148,7 @@
     <a href="https://www.youtube.com/@yeftakun" target="_blank"><img class="logo" src="./assets/logo_youtube.png" alt="Youtube"></a>
     <a href="https://www.instagram.com/yeftaasyel" target="_blank"><img class="logo" src="./assets/logo_instagram.png" alt="Instagram"></a>
     <a href="https://www.github.com/yeftakun" target="_blank"><img class="logo" src="./assets/logo_github.png" alt="Github"></a>
+    <a href="https://www.github.com/yeftakun/lowres-image" target="_blank"><img class="logo" src="./assets/logo_sourcecode.png" alt="sourcecode"></a>
   </div>
 
   <div id="gambar-atas">
@@ -163,6 +176,11 @@
     <button id="save-button">Save As</button>
     <button id="copy-button">Copy Image</button>
   </div>
+</div>
+
+<!-- Footer -->
+<div id="footer" style="background-color: white; text-align: center; padding: 10px;">
+  <p style="margin: 0; color: black;">Sorry, the web interface is so ugly, lol</p>
 </div>
 
 <script>
