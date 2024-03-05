@@ -213,12 +213,17 @@
   });
 
   document.getElementById('downres-button').addEventListener('click', function() {
-    const image = document.getElementById('image-preview');
-    const slider = document.getElementById('downres-slider');
-    const percent = parseInt(slider.value);
-    const newDataUrl = downscaleImage(image, percent);
-    image.src = newDataUrl;
-  });
+  // Step 1: Undo the changes first
+  document.getElementById('undo-button').click();
+
+  // Step 2: Perform downscaling
+  const image = document.getElementById('image-preview');
+  const slider = document.getElementById('downres-slider');
+  const percent = parseInt(slider.value);
+  const newDataUrl = downscaleImage(image, percent);
+  image.src = newDataUrl;
+});
+
 
   document.getElementById('undo-button').addEventListener('click', function() {
     if (originalImage) {
