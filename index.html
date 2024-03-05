@@ -138,7 +138,50 @@
     z-index: 999; /* Mengatur stacking order agar footer berada di atas konten lain */
   }
 
+  /* Modal styles */
+  .modal {
+    display: none; /* Hide the modal by default */
+    position: fixed; /* Position the modal */
+    z-index: 1; /* Ensure it appears on top of other content */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Enable scrolling if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    padding-top: 60px; /* Location of modal content */
+  }
 
+  .modal-content {
+    background-color: #fefefe;
+    margin: 5% auto; /* 5% from the top and centered */
+    padding: 20px;
+    border: 1px solid #2d2d2d;
+    width: 80%; /* 80% of modal width */
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out; /* Add transition for opacity */
+    color: #2d2d2d;
+    border-radius: 10px;
+  }
+
+  .modal.show .modal-content {
+    opacity: 1;
+  }
+
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
 </style>
 </head>
 <body>
@@ -149,6 +192,11 @@
     <a href="https://www.instagram.com/yeftaasyel" target="_blank"><img class="logo" src="./assets/logo_instagram.png" alt="Instagram"></a>
     <a href="https://www.github.com/yeftakun" target="_blank"><img class="logo" src="./assets/logo_github.png" alt="Github"></a>
     <a href="https://www.github.com/yeftakun/lowres-image" target="_blank"><img class="logo" src="./assets/logo_sourcecode.png" alt="sourcecode"></a>
+  </div>
+
+  <!-- Tombol ? untuk menampilkan modal -->
+  <div style="text-align: right; margin-bottom: 10px;">
+    <button id="modal-button">?</button>
   </div>
 
   <div id="gambar-atas">
@@ -163,7 +211,7 @@
   <div id="image-container">
     <div id="downres-slider-box">
       <p align="center">
-        <input type="range" min="5" max="99" value="99" class="slider" id="downres-slider">
+        <input type="range" min="50" max="99" value="99" class="slider" id="downres-slider">
       </p>
     </div>
   </div>
@@ -175,6 +223,14 @@
   <div id="button-container">
     <button id="save-button">Save As</button>
     <button id="copy-button">Copy Image</button>
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="myModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>By clicking "downress" repeatedly, you can gradually reduce the resolution of the image (to avoid pixelation). For smoother results, simply slide the setting to the maximum and downress until satisfactory.</p>
   </div>
 </div>
 
@@ -213,16 +269,16 @@
   });
 
   document.getElementById('downres-button').addEventListener('click', function() {
-  // Step 1: Undo the changes first
-  document.getElementById('undo-button').click();
+    // Step 1: Undo the changes first
+    //document.getElementById('undo-button').click();
 
-  // Step 2: Perform downscaling
-  const image = document.getElementById('image-preview');
-  const slider = document.getElementById('downres-slider');
-  const percent = parseInt(slider.value);
-  const newDataUrl = downscaleImage(image, percent);
-  image.src = newDataUrl;
-});
+    // Step 2: Perform downscaling
+    const image = document.getElementById('image-preview');
+    const slider = document.getElementById('downres-slider');
+    const percent = parseInt(slider.value);
+    const newDataUrl = downscaleImage(image, percent);
+    image.src = newDataUrl;
+  });
 
 
   document.getElementById('undo-button').addEventListener('click', function() {
@@ -259,6 +315,41 @@
       });
     }, 'image/png');
   });
+
+  // Get the modal
+  var modal = document.getElementById("myModal");
+
+  // Get the button that opens the modal
+  var btn = document.getElementById("modal-button");
+
+  // Get the <span> element that closes the modal
+  var span = document.getElementsByClassName("close")[0];
+
+  // When the user clicks the button, open the modal 
+  btn.onclick = function() {
+    modal.style.display = "block";
+    setTimeout(function() {
+      modal.classList.add("show");
+    }, 10);
+  }
+
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function() {
+    modal.classList.remove("show");
+    setTimeout(function() {
+      modal.style.display = "none";
+    }, 500);
+  }
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.classList.remove("show");
+      setTimeout(function() {
+        modal.style.display = "none";
+      }, 500);
+    }
+  }
 </script>
 </body>
 </html>
